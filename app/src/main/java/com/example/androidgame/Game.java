@@ -17,6 +17,7 @@ Game manages all objects in the game and is responsible for updating all states 
 
 public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
+    private final Joystick joystick;
     private final Player player;
     private GameLoop gameLoop;
     public Game(Context context) {
@@ -27,6 +28,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         surfaceHolder.addCallback(this);
 
         gameLoop = new GameLoop(this, surfaceHolder);
+
+        // Initialize game objects
+        joystick = new Joystick(275, 750, 70, 40);
 
         // Initialize player
         player = new Player(getContext(), 1000, 500,35);
@@ -40,11 +44,26 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         // Handle touch event actions
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                player.setPosition((double) event.getX(), (double) event.getY());
+                if (joystick.isPressed((double) event.getX(), (double) event.getY()))
+                {
+                    joystick.setIsPressed(true);
+                }
+
                 return true;
+
             case MotionEvent.ACTION_MOVE:
-                player.setPosition((double) event.getX(), (double) event.getY());
+                if(joystick.getIsPressed())
+                {
+                    joystick.setActuator((double) event.getX(), (double) event.getY());
+                }
+
                 return true;
+
+            case MotionEvent.ACTION_UP:
+                joystick.setIsPressed(false);
+                joystick.resetActuator();
+                return true;
+
         }
 
         return super.onTouchEvent(event);
@@ -72,6 +91,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         drawUPS(canvas);
         drawFPS(canvas);
 
+        joystick.draw(canvas);
         player.draw(canvas);
     }
 
@@ -95,6 +115,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update() {
         //Update game state
-        player.update();
+        player.update(joystick);
+        joystick.update();
     }
 }
