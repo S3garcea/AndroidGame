@@ -11,6 +11,9 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import object.Enemy;
+import object.Player;
+
 /*
 Game manages all objects in the game and is responsible for updating all states and render all objects to the screen
 */

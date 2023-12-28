@@ -1,16 +1,17 @@
-package com.example.androidgame;
-
-import static com.example.androidgame.Player.MAX_SPEED;
+package object;
 
 import android.content.Context;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.androidgame.GameLoop;
+import com.example.androidgame.R;
+
 /**
  * Enemy is a character, extension of Circle
  * Enemy always moves in the direction of the Player
  */
-class Enemy extends Circle{
+public class Enemy extends Circle{
 
     private static final double SPEED_PIXELS_PER_SECONDS = Player.SPEED_PIXELS_PER_SECONDS * 0.7;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECONDS / GameLoop.MAX_UPS;

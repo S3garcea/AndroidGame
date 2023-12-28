@@ -3,7 +3,7 @@ package com.example.androidgame;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-class GameLoop extends Thread{
+public class GameLoop extends Thread{
 
     public static final double MAX_UPS = 60.0;
     private static final double UPS_PERIOD = 1E+3/MAX_UPS;

@@ -1,8 +1,12 @@
-package com.example.androidgame;
+package object;
 
 import android.content.Context;
 
 import androidx.core.content.ContextCompat;
+
+import com.example.androidgame.GameLoop;
+import com.example.androidgame.Joystick;
+import com.example.androidgame.R;
 
 /**
  *  Player is the main character of the game
@@ -12,7 +16,7 @@ import androidx.core.content.ContextCompat;
  *  The player class is an extension of the Circle class, which in turn is an extension
  *  of the GameObject class
  */
-class Player extends Circle {
+public class Player extends Circle {
 
     /*
 
