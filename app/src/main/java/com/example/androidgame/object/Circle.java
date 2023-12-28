@@ -1,4 +1,4 @@
-package object;
+package com.example.androidgame.object;
 
 import android.content.Context;
 import android.graphics.Canvas;

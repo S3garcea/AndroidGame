@@ -1,4 +1,4 @@
-package object;
+package com.example.androidgame.object;
 
 import android.content.Context;
 
@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import com.example.androidgame.GameLoop;
 import com.example.androidgame.Joystick;
 import com.example.androidgame.R;
+import com.example.androidgame.Utils;
 
 /**
  *  Player is the main character of the game
@@ -45,11 +46,9 @@ public class Player extends Circle {
 
     }
 
-
-
     public void update() {
 
-        // Update velocity based on actuator opf Joystick
+        // Update velocity based on actuator of Joystick
 
         velocityX = joystick.getActuatorX()*MAX_SPEED;
         velocityY = joystick.getActuatorY()*MAX_SPEED;
@@ -57,6 +56,16 @@ public class Player extends Circle {
         // Update position
         positionX += velocityX;
         positionY += velocityY;
+
+        // Update direction
+        if (velocityX != 0 || velocityY != 0) {
+
+            // Normalize velocaity to get direction (unit vector of velocity)
+
+            double distance = Utils.getDistanceBetweenPoints(0,0, velocityX, velocityY);
+            directionX = velocityX/distance;
+            directionY = velocityY/distance;
+        }
 
     }
 

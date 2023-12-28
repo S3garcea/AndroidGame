@@ -1,4 +1,4 @@
-package object;
+package com.example.androidgame.object;
 
 import android.content.Context;
 
@@ -67,7 +67,7 @@ public class Enemy extends Circle{
         // Calculate (absolute) distance between enemy (this) and
         // player
 
-        double distanceToPlayer = GameObject.getDistanceBetweenObjects(this, player);
+        double distanceToPlayer = getDistanceBetweenObjects(this, player);
 
         // Calculate direction from enemy to player
         double directionX = distanceToPlayerX/distanceToPlayer;

@@ -1,4 +1,4 @@
-package object;
+package com.example.androidgame.object;
 
 import android.graphics.Canvas;
 
@@ -12,6 +12,8 @@ public abstract class GameObject {
     protected double positionY;
     protected double velocityX;
     protected double velocityY;
+    protected double directionX = 1.0;
+    protected double directionY;
 
     public GameObject(double positionX, double positionY) {
 
@@ -38,5 +40,13 @@ public abstract class GameObject {
 
     protected double getPositionY() {
         return positionY;
+    }
+
+    protected double getDirectionX() {
+        return directionX;
+    }
+
+    protected double getDirectionY() {
+        return directionY;
     }
 }
