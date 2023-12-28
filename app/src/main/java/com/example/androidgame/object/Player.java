@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import com.example.androidgame.GameLoop;
 import com.example.androidgame.Joystick;
 import com.example.androidgame.R;
+import com.example.androidgame.Sprite;
 import com.example.androidgame.Utils;
 
 /**
@@ -36,8 +37,9 @@ public class Player extends Circle {
     public static final int MAX_HEALTH_POINTS = 100;
     private HealthBar healthBar;
     private int healthPoints;
+    private Sprite sprite;
 
-    public Player (Context context, Joystick joystick, double positionX, double positionY, double radius) {
+    public Player (Context context, Joystick joystick, double positionX, double positionY, double radius, Sprite sprite) {
 
         super(context, ContextCompat.getColor(context, R.color.player), positionX, positionY, radius);
 
@@ -49,6 +51,7 @@ public class Player extends Circle {
         this.joystick = joystick;
         this.healthBar = new HealthBar(context, this);
         this.healthPoints = MAX_HEALTH_POINTS;
+        this.sprite = sprite;
 
     }
 
@@ -77,7 +80,9 @@ public class Player extends Circle {
 
     public void draw(Canvas canvas) {
 
-        super.draw(canvas);
+        // super.draw(canvas);
+
+        sprite.draw(canvas, (int) getPositionX() - 70, (int) getPositionY() - 70);
         healthBar.draw(canvas);
 
     }
@@ -91,5 +96,7 @@ public class Player extends Circle {
         // Only allow positive values
         if (healthPoints >= 0)
             this.healthPoints = healthPoints;
+        else
+            this.healthPoints = 0;
     }
 }

@@ -33,6 +33,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private List<Spell> spellList = new ArrayList<Spell>();
     private int joystickPointerId = 0;
     private int numberOfSpellsToCast = 0;
+    private GameOver gameOver;
 
     public Game(Context context) {
         super(context);
@@ -43,11 +44,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         gameLoop = new GameLoop(this, surfaceHolder);
 
+        // Inititalize Game Panels
+        gameOver = new GameOver(getContext());
+
         // Initialize game objects
         joystick = new Joystick(275, 750, 70, 40);
 
         // Initialize player
-        player = new Player(getContext(), joystick, 1000,500, 35);
+        SpriteSheet spriteSheet = new SpriteSheet(context);
+        player = new Player(getContext(), joystick, 1000,500, 35, spriteSheet.getPlayerSprite());
         
         setFocusable(true);
     }
@@ -144,6 +149,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         for (Spell spell : spellList) {
             spell.draw(canvas);
         }
+
+        // Draw Game Over if the player is dead
+        if (player.getHealthPoints() <= 0) {
+            gameOver.draw(canvas);
+        }
     }
 
     public void drawUPS(Canvas canvas) {
@@ -165,7 +175,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        //Update game state
+
+        // Stop updating when Game Over
+        if (player.getHealthPoints() == 0) {
+
+            return;
+
+        }
+
+        // Update game state
         player.update();
         joystick.update();
 
@@ -198,7 +216,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
                 
                 // Remove Enemy if collides with Player
                 iteratorEnemy.remove();
-                player.setHealthPoints(player.getHealthPoints() - 5);
+                player.setHealthPoints(player.getHealthPoints() - 30);
                 continue;
             }
 

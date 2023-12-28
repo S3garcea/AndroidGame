@@ -50,7 +50,7 @@ public class HealthBar {
 
         float x = (float) player.getPositionX();
         float y = (float) player.getPositionY();
-        float distanceToPlayer = 55;
+        float distanceToPlayer = 75;
         float healthPointsPerecentage = (float) player.getHealthPoints()/player.MAX_HEALTH_POINTS;
 
         // Draw background

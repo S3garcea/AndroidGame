@@ -12,12 +12,13 @@ public class Spell extends Circle {
     public static final double SPEED_PIXELS_PER_SECONDS = 700.0;
     public static final double MAX_SPEED = SPEED_PIXELS_PER_SECONDS / GameLoop.MAX_UPS;
     public Spell(Context context, Player spellcaster) {
+
         super(
                 context,
                 ContextCompat.getColor(context, R.color.spell),
                 spellcaster.getPositionX(),
                 spellcaster.getPositionY(),
-                10
+               12
         );
 
         this.spellcaster = spellcaster;
