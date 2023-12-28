@@ -19,6 +19,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     private final Joystick joystick;
     private final Player player;
+    private final Enemy enemy;
     private GameLoop gameLoop;
     public Game(Context context) {
         super(context);
@@ -33,8 +34,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         joystick = new Joystick(275, 750, 70, 40);
 
         // Initialize player
-        player = new Player(getContext(), 1000, 500,35);
+        player = new Player(getContext(), joystick, 1000,500, 35);
 
+        // Inititalize enemies
+        enemy = new Enemy(getContext(), player, 500,200, 30);
+        
         setFocusable(true);
     }
 
@@ -93,6 +97,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         joystick.draw(canvas);
         player.draw(canvas);
+        enemy.draw(canvas);
     }
 
     public void drawUPS(Canvas canvas) {
@@ -115,7 +120,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update() {
         //Update game state
-        player.update(joystick);
+        player.update();
+        enemy.update();
         joystick.update();
     }
 }
