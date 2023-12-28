@@ -6,5 +6,10 @@
     <color name="player">#f58742</color>
     <color name="enemy">#d2d4d6</color>
     <color name="spell">#f5e16e</color>
+    <color name="healthBarBackground">#a8a8a8</color>
+    <color name="healthBar1">#219125</color>
+    <color name="healthBar2">#5cb02c</color>
+    <color name="healthBar3">#e3cc02</color>
+    <color name="healthBar4">#8c1500</color>
 
 </resources>
