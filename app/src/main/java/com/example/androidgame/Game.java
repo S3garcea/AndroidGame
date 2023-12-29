@@ -34,6 +34,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private int joystickPointerId = 0;
     private int numberOfSpellsToCast = 0;
     private GameOver gameOver;
+    private SpriteEnemy spriteEnemy;
 
     public Game(Context context) {
         super(context);
@@ -53,7 +54,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         // Initialize player
         SpriteSheet spriteSheet = new SpriteSheet(context);
         player = new Player(getContext(), joystick, 1000,500, 35, spriteSheet.getPlayerSprite());
-        
+
+        // Prepare pop-corn
+        SpriteSheetEnemy spriteSheetEnemy = new SpriteSheetEnemy(context);
+        spriteEnemy = spriteSheetEnemy.getEnemySprite();
+
         setFocusable(true);
     }
 
@@ -188,7 +193,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         joystick.update();
 
         if (Enemy.readyToSpawn()) {
-            enemyList.add(new Enemy(getContext(), player));
+            // enemyList.add(new Enemy());
+            enemyList.add(new Enemy(
+                    getContext(),
+                    player,
+                    Math.random() * 1000,
+                    Math.random() * 1000,
+                    30,
+                    spriteEnemy
+            ));
         }
 
         while (numberOfSpellsToCast > 0) {

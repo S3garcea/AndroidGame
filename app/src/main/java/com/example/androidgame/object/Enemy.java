@@ -1,11 +1,13 @@
 package com.example.androidgame.object;
 
 import android.content.Context;
+import android.graphics.Canvas;
 
 import androidx.core.content.ContextCompat;
 
 import com.example.androidgame.GameLoop;
 import com.example.androidgame.R;
+import com.example.androidgame.SpriteEnemy;
 
 /**
  * Enemy is a character, extension of Circle
@@ -20,13 +22,15 @@ public class Enemy extends Circle{
     private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/SPAWNS_PER_SECOND;
     private static double updatesUntilNextSpawn = UPDATES_PER_SPAWN;
     private final Player player;
+    private final SpriteEnemy spriteEnemy;
 
-    public Enemy(Context context, Player player, double positionX, double positionY, double radius) {
+    public Enemy(Context context, Player player, double positionX, double positionY, double radius, SpriteEnemy spriteEnemy) {
         super(context, ContextCompat.getColor(context, R.color.enemy), positionX, positionY, radius);
         this.player = player;
+        this.spriteEnemy = spriteEnemy;
     }
 
-    public Enemy(Context context, Player player) {
+    public Enemy(Context context, Player player, SpriteEnemy spriteEnemy) {
         super(
                 context,
                 ContextCompat.getColor(context, R.color.enemy),
@@ -36,6 +40,7 @@ public class Enemy extends Circle{
         );
 
         this.player = player;
+        this.spriteEnemy = spriteEnemy;
     }
 
     /** readyToSpawn checks if a new enemy should spawn according to the decided number of
@@ -95,4 +100,10 @@ public class Enemy extends Circle{
         positionY += velocityY;
 
     }
+
+    public void draw(Canvas canvas) {
+
+        spriteEnemy.draw(canvas, (int) getPositionX() - 50, (int) getPositionY() - 50);
+    }
+
 }
