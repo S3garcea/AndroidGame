@@ -63,8 +63,29 @@ public class Player extends Circle {
         velocityY = joystick.getActuatorY()*MAX_SPEED;
 
         // Update position
+
+        // I'll try adding the screen boundaries here
+
+        if (positionX > 2120) {
+            positionX -= 1;
+        } else if (positionX < 100) {
+            positionX += 1;
+        } else {
+                positionX += velocityX;
+            }
+
+        if (positionY > 950) {
+            positionY -= 1;
+        } else if (positionY < 120) {
+            positionY += 1;
+        } else {
+            positionY += velocityY;
+        }
+
+        /*
         positionX += velocityX;
         positionY += velocityY;
+         */
 
         // Update direction
         if (velocityX != 0 || velocityY != 0) {
