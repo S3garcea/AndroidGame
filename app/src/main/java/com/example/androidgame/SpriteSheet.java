@@ -17,7 +17,7 @@ public class SpriteSheet {
     }
 
     public Sprite getPlayerSprite() {
-        return new Sprite(this, new Rect(0, 0, 140, 140));
+        return new Sprite(this, new Rect(0, 0, 210, 210));
     }
 
     public Bitmap getBitmap() {

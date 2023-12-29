@@ -19,7 +19,7 @@ public class Sprite {
         canvas.drawBitmap(
                 spriteSheet.getBitmap(),
                 rect,
-                new Rect(x, y, x + 140, y + 140),
+                new Rect(x, y, x + 210, y + 210),
                 null
         );
     }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import androidx.core.content.ContextCompat;
 
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -35,6 +36,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private int numberOfSpellsToCast = 0;
     private GameOver gameOver;
     private SpriteEnemy spriteEnemy;
+    private MediaPlayer hitSound, gameoverSound;
 
     public Game(Context context) {
         super(context);
@@ -53,11 +55,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         // Initialize player
         SpriteSheet spriteSheet = new SpriteSheet(context);
-        player = new Player(getContext(), joystick, 1000,500, 35, spriteSheet.getPlayerSprite());
+        player = new Player(getContext(), joystick, 1000,500, 70, spriteSheet.getPlayerSprite());
 
         // Prepare pop-corn
         SpriteSheetEnemy spriteSheetEnemy = new SpriteSheetEnemy(context);
         spriteEnemy = spriteSheetEnemy.getEnemySprite();
+
+        // Prepare Sounds
+        hitSound = MediaPlayer.create(this.getContext(), R.raw.ras);
+        gameoverSound = MediaPlayer.create(this.getContext(), R.raw.maidatebanpulamea);
 
         setFocusable(true);
     }
@@ -140,6 +146,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
+
         super.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
@@ -197,9 +204,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
             enemyList.add(new Enemy(
                     getContext(),
                     player,
-                    Math.random() * 1000,
-                    Math.random() * 1000,
-                    30,
+                    Math.random() * 2000,
+                    Math.random() * 2000,
+                    45,
                     spriteEnemy
             ));
         }
@@ -229,7 +236,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
                 
                 // Remove Enemy if collides with Player
                 iteratorEnemy.remove();
-                player.setHealthPoints(player.getHealthPoints() - 1);
+                player.setHealthPoints(player.getHealthPoints() - 5);
+                hitSound.start();
+                if (player.getHealthPoints() == 0)
+                    gameoverSound.start();
                 continue;
             }
 

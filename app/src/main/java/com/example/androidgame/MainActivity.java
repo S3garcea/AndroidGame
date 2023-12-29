@@ -22,5 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set content view to game, so that objects in the Game class can be rendered to the screen
         setContentView(new Game(this));
+
     }
 }

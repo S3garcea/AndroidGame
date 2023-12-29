@@ -66,9 +66,9 @@ public class Player extends Circle {
 
         // I'll try adding the screen boundaries here
 
-        if (positionX > 2120) {
+        if (positionX > 2020) {
             positionX -= 1;
-        } else if (positionX < 100) {
+        } else if (positionX < 140) {
             positionX += 1;
         } else {
                 positionX += velocityX;
@@ -76,7 +76,7 @@ public class Player extends Circle {
 
         if (positionY > 950) {
             positionY -= 1;
-        } else if (positionY < 120) {
+        } else if (positionY < 190) {
             positionY += 1;
         } else {
             positionY += velocityY;
@@ -103,7 +103,7 @@ public class Player extends Circle {
 
         // super.draw(canvas);
 
-        sprite.draw(canvas, (int) getPositionX() - 70, (int) getPositionY() - 70);
+        sprite.draw(canvas, (int) getPositionX() - 105, (int) getPositionY() - 105);
         healthBar.draw(canvas);
 
     }

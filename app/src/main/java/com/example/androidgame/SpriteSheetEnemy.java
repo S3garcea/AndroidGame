@@ -17,7 +17,7 @@ public class SpriteSheetEnemy {
     }
 
     public SpriteEnemy getEnemySprite() {
-        return new SpriteEnemy(this, new Rect(0, 0, 100, 100));
+        return new SpriteEnemy(this, new Rect(0, 0, 200, 200));
     }
 
     public Bitmap getBitmap() {

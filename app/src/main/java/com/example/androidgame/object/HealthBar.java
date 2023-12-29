@@ -20,8 +20,8 @@ public class HealthBar {
     public HealthBar (Context context, Player player) {
 
         this.player = player;
-        this.width = 180;
-        this.height = 30;
+        this.width = 240;
+        this.height = 40;
         this.margin = 2;
 
         this.backgroundPaint = new Paint();
@@ -50,14 +50,14 @@ public class HealthBar {
 
         float x = (float) player.getPositionX();
         float y = (float) player.getPositionY();
-        float distanceToPlayer = 75;
+        float distanceToPlayer = 120;
         float healthPointsPerecentage = (float) player.getHealthPoints()/player.MAX_HEALTH_POINTS;
 
         // Draw background
         float backgroundLeft, backgroundTop, backgroundRight, backgroundBottom;
 
-        backgroundLeft = x - width/2;
-        backgroundRight = x + width/2;
+        backgroundLeft = x - width/2 - 10;
+        backgroundRight = x + width/2 - 12;
         backgroundBottom = y - distanceToPlayer;
         backgroundTop = backgroundBottom - height;
 

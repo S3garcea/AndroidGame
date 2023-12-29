@@ -19,7 +19,8 @@ public class Enemy extends Circle{
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECONDS / GameLoop.MAX_UPS;
     private static final double SPAWNS_PER_MINUTE = 10;
     private static final double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
-    private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/SPAWNS_PER_SECOND;
+    // private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/SPAWNS_PER_SECOND;
+    private static double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/SPAWNS_PER_SECOND;
     private static double updatesUntilNextSpawn = UPDATES_PER_SPAWN;
     private final Player player;
     private final SpriteEnemy spriteEnemy;
@@ -30,6 +31,7 @@ public class Enemy extends Circle{
         this.spriteEnemy = spriteEnemy;
     }
 
+    /*
     public Enemy(Context context, Player player, SpriteEnemy spriteEnemy) {
         super(
                 context,
@@ -43,6 +45,10 @@ public class Enemy extends Circle{
         this.spriteEnemy = spriteEnemy;
     }
 
+     */
+
+
+
     /** readyToSpawn checks if a new enemy should spawn according to the decided number of
      * spawns per minute (see SPAWNS_PER_MINUTE at top)
      */
@@ -51,11 +57,16 @@ public class Enemy extends Circle{
         if (updatesUntilNextSpawn <= 0) {
 
             updatesUntilNextSpawn += UPDATES_PER_SPAWN;
+            //
+            UPDATES_PER_SPAWN *= 0.97;
+            //
+
             return true;
         } else {
             updatesUntilNextSpawn --;
             return false;
         }
+
     }
 
     @Override
