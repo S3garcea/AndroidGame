@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import androidx.core.content.ContextCompat;
 
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -135,16 +136,28 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
 
+        Log.d("Game.java", "surfaceCreated()");
+
+        if (gameLoop.getState().equals(Thread.State.TERMINATED)) {
+            SurfaceHolder surfaceHolder = getHolder();
+            surfaceHolder.addCallback(this);
+            gameLoop = new GameLoop(this, surfaceHolder);
+        }
+
         gameLoop.startLoop();
     }
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
 
+        Log.d("Game.java", "surfaceChanged()");
+
     }
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+
+        Log.d("Game.java", "surfaceDestroyed()");
 
     }
 
@@ -300,6 +313,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         }
 
+    }
+
+    public void pause() {
+
+        gameLoop.stopLoop();
     }
 
 }
