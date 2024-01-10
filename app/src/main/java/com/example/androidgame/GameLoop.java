@@ -3,6 +3,8 @@ package com.example.androidgame;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
+import com.example.androidgame.object.Enemy;
+
 public class GameLoop extends Thread{
 
     public static final double MAX_UPS = 60.0;
@@ -24,6 +26,12 @@ public class GameLoop extends Thread{
     public double getAverageFPS() {
         return averageFPS;
     }
+
+    public double getUpdatesPerSpawn() {
+        return Enemy.updatesUntilNextSpawn;
+    }
+
+    // public double getScore() { return.Game.score; }
 
     public void startLoop() {
         isRunning = true;
@@ -99,4 +107,5 @@ public class GameLoop extends Thread{
             }
         }
     }
+
 }

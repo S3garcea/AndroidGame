@@ -38,6 +38,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private SpriteEnemy spriteEnemy;
     private MediaPlayer hitSound, gameoverSound;
 
+    private double randoX;
+    private double randoY ;
+    public static int score = 0;
+
     public Game(Context context) {
         super(context);
 
@@ -150,6 +154,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
+        // drawUpdatesSpawns(canvas);
+        drawScore(canvas);
 
         joystick.draw(canvas);
         player.draw(canvas);
@@ -186,6 +192,24 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawText("FPS: " + averageFPS, 100, 95, paint);
     }
 
+    public void drawScore(Canvas canvas) {
+        String yourScoreIs = Integer.toString(score);
+        Paint paint = new Paint();
+        int color = ContextCompat.getColor(getContext(), R.color.magenta);
+        paint.setColor(color);
+        paint.setTextSize(90);
+        canvas.drawText("Score: " + yourScoreIs, 1700, 80, paint);
+    }
+
+    public void drawUpdatesSpawns(Canvas canvas) {
+        String spawns = Double.toString(gameLoop.getUpdatesPerSpawn());
+        Paint paint = new Paint();
+        int color = ContextCompat.getColor(getContext(), R.color.magenta);
+        paint.setColor(color);
+        paint.setTextSize(50);
+        canvas.drawText("Updates per Spawn: " + spawns, 1500, 130, paint);
+    }
+
     public void update() {
 
         // Stop updating when Game Over
@@ -200,13 +224,29 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         joystick.update();
 
         if (Enemy.readyToSpawn()) {
+
+            randoX = Math.random();
+            randoY = Math.random();
+
+            if (randoX <= 0.5)
+                randoX = randoX * 1000 - 1000;
+            else
+                randoX = randoX * 1000 + 1000;
+
+            if (randoY <= 0.5)
+                randoY = randoY * 1000 - 1000;
+            else
+                randoY = randoY * 1000 + 1000;
+
             // enemyList.add(new Enemy());
             enemyList.add(new Enemy(
                     getContext(),
                     player,
-                    Math.random() * 2000,
-                    Math.random() * 2000,
-                    45,
+                  //  Math.random() * 2000,
+                  //  Math.random() * 2000,
+                    randoX,
+                    randoY,
+                    50,
                     spriteEnemy
             ));
         }
@@ -253,6 +293,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
                 if (Circle.isColliding(spell, enemy)) {
                     iteratorSpell.remove();
                     iteratorEnemy.remove();
+                    score++;
                     break;
                 }
             }

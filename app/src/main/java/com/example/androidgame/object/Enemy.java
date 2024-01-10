@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.androidgame.Game;
 import com.example.androidgame.GameLoop;
 import com.example.androidgame.R;
 import com.example.androidgame.SpriteEnemy;
@@ -21,7 +22,7 @@ public class Enemy extends Circle{
     private static final double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
     // private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/SPAWNS_PER_SECOND;
     private static double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/SPAWNS_PER_SECOND;
-    private static double updatesUntilNextSpawn = UPDATES_PER_SPAWN;
+    public static double updatesUntilNextSpawn = UPDATES_PER_SPAWN;
     private final Player player;
     private final SpriteEnemy spriteEnemy;
 
@@ -57,9 +58,18 @@ public class Enemy extends Circle{
         if (updatesUntilNextSpawn <= 0) {
 
             updatesUntilNextSpawn += UPDATES_PER_SPAWN;
-            //
+
+            if (UPDATES_PER_SPAWN >= 150)
+                UPDATES_PER_SPAWN = UPDATES_PER_SPAWN * (1.00 - Game.score * 0.1);
+            else if (UPDATES_PER_SPAWN >= 80 && UPDATES_PER_SPAWN < 150)
+                UPDATES_PER_SPAWN += UPDATES_PER_SPAWN * (1.00 - Game.score * 0.002);
+            else if (UPDATES_PER_SPAWN >= 60 && UPDATES_PER_SPAWN < 80)
+                UPDATES_PER_SPAWN += UPDATES_PER_SPAWN * (1.00 - Game.score * 0.0001);
+            else
+                UPDATES_PER_SPAWN *= 0.999;
+            /*
             UPDATES_PER_SPAWN *= 0.97;
-            //
+            */
 
             return true;
         } else {
@@ -114,7 +124,7 @@ public class Enemy extends Circle{
 
     public void draw(Canvas canvas) {
 
-        spriteEnemy.draw(canvas, (int) getPositionX() - 50, (int) getPositionY() - 50);
+        spriteEnemy.draw(canvas, (int) getPositionX() - 100, (int) getPositionY() - 100);
     }
 
 }

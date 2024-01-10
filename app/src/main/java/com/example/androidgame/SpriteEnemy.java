@@ -19,7 +19,7 @@ public class SpriteEnemy {
         canvas.drawBitmap(
                 spriteSheetEnemy.getBitmap(),
                 rect,
-                new Rect(x, y, x + 150, y + 150),
+                new Rect(x, y, x + 200, y + 200),
                 null
         );
     }

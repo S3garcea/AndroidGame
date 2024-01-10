@@ -5,7 +5,7 @@
     <color name="magenta">#FF09FF</color>
     <color name="player">#f58742</color>
     <color name="enemy">#d2d4d6</color>
-    <color name="spell">#f5e16e</color>
+    <color name="spell">#edbc0c</color>
     <color name="healthBarBackground">#a8a8a8</color>
     <color name="healthBar1">#219125</color>
     <color name="healthBar2">#5cb02c</color>
